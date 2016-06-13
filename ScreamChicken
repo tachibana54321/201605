@@ -1,0 +1,38 @@
+import pygame
+import random
+pygame.init()
+pygame.mixer.init()
+
+def main():
+    screen = pygame.display.set_mode((640, 480))
+    pygame.display.set_caption("慘叫雞")
+    background = pygame.image.load("background.jpg").convert()
+    screen.blit(background, [0, 0])
+    
+    
+    #create label
+    myFont = pygame.font.SysFont("Comic Sans MS", 30)
+    label = myFont.render("Press SPACE to attack the chicken", 1, (0, 0, 255))
+    
+    #create sound
+   
+    keepGoing = True
+    
+    while keepGoing:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                keepGoing = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    x = random.randint(0,6)
+                    filename = str(x)+".ogg"
+                    wooHoo = pygame.mixer.Sound(filename)
+                    wooHoo.play()
+                elif event.key == pygame.K_ESCAPE:
+                    keepGoing = False
+    
+        screen.blit(background, (0, 0))
+        screen.blit(label, (100, 100))
+        pygame.display.flip()
+if __name__ == "__main__":
+    main()
